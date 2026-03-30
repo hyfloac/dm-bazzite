@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+# image will be published to ghcr.io/<user>/<name>
+name: dm-bazzite-testing
+# description will be included in the image's metadata
+description: This is my personal OS image, derived from the testing branch.
+
+# the base image to build on top of (FROM) and the version tag to use
+base-image: ghcr.io/ublue-os/bazzite-nvidia-open
+image-version: testing # latest is also supported if you want new updates ASAP
+
+# module configuration, executed in order
+# you can include multiple instances of the same module
+modules:
+  - type: files
+    files:
+      - source: system
+        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+
+  - type: dnf
+    repos:
+      files:
+        - https://repository.mullvad.net/rpm/stable/mullvad.repo
+    install:
+      packages:
+        - libstdc++-devel
+        - openssl-devel
+        - xz-devel
+        - libxkbcommon-devel
+        - vulkan-loader-devel
+        - libglvnd-core-devel
+        - libglvnd-devel
+        - libffi-devel
+        - wayland-devel
+        - qt6-qtbase-devel
+        - qt6-qtwebsockets-devel
+        - ckb-next
+        - python3-websockets
+        - mullvad-vpn
+        
+  - type: signing # this sets up the proper policy & signing files for signed images to work fully
