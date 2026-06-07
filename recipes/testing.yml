@@ -21,6 +21,7 @@ modules:
     repos:
       files:
         - https://repository.mullvad.net/rpm/stable/mullvad.repo
+        - https://packages.microsoft.com/yumrepos/vscode/config.repo
     install:
       packages:
         - libstdc++-devel
@@ -37,6 +38,7 @@ modules:
         - ckb-next
         - python3-websockets
         - mullvad-vpn
-        - llvm18-libs
+        - ghdl
+        - code
         
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
